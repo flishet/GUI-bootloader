@@ -1,7 +1,5 @@
 #include "functions.h"
 
-
-
 functions::functions(QObject *parent) : QObject(parent) {
     connect(&m_serialPort, &QSerialPort::readyRead, this, &functions::handleReadyRead);
     connect(timer, &QTimer::timeout, this, &functions::onTimeout);
@@ -10,8 +8,8 @@ functions::functions(QObject *parent) : QObject(parent) {
 
 void functions::onTimeout()
 {
-    setCounter(m_counter + 1);
-    qDebug()<<m_counter;
+    m_counter++;
+    emit counterChanged(m_counter);
 }
 
 bool functions::openSerialPort(const QString &portName, int baudRate) {

@@ -2,12 +2,23 @@ import QtQuick 2.12
 import QtQuick.Window 2.3
 import QtQuick.Extras 1.4
 import QtQuick.Controls 2.12
+import QtQml 2.12
 
 Window {
     width: 640
     height: 480
     visible: true
     title: qsTr("Hello World")
+
+
+    Connections{
+        target: functions
+
+        onCounterChanged: {
+            console.log(m_counter)
+            progressBar.value = m_counter/100
+        }
+    }
 
     GroupBox {
         id: groupBox
@@ -48,12 +59,10 @@ Window {
         }
     }
 
-
     ProgressBar {
         id: progressBar
         x: 220
         y: 373
-        value: functions.counter()
     }
 
     Button {
@@ -73,7 +82,6 @@ Window {
 
     }
 
-
     TextInput {
         id: hexInput
         x: 241
@@ -85,23 +93,14 @@ Window {
         horizontalAlignment: TextInput.AlignHCenter
         verticalAlignment: TextInput.AlignVCenter
 
-        // محدود کردن طول ورودی (اختیاری)
-        //                maxLength: 8
 
-        // استایل
-        //                background: Rectangle {
-        //                    color: "lightgray"
-        //                    border.color: "gray"
-        //                    radius: 5
-        //                }
 
-        // محدود کردن ورودی به هگزادسیمال با استفاده از یک validator
-        inputMask: ">HHHHHHHH;" // محدود به کاراکترهای هگزادسیمال
+
+        inputMask: ">HHHHHHHH;"
         validator: RegExpValidator {
             regExp: /^[0-9a-fA-F]*$/
         }
 
-        // کنترل تغییرات ورودی
         onTextChanged: {
             console.log("Hex Input:", text)
         }
