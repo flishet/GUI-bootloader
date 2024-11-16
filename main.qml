@@ -1,13 +1,22 @@
 import QtQuick 2.12
 import QtQuick.Window 2.3
-import QtQuick.Extras 1.4
 import QtQuick.Controls 2.12
+import QtQuick.Extras 1.4
+import QtQml 2.12
+
+
+
 
 Window {
     width: 640
     height: 480
     visible: true
     title: qsTr("Hello World")
+
+    Connections {
+        target:functions
+        onValueChanged: progressBar.value=newValue/100
+    }
 
     GroupBox {
         id: groupBox
@@ -53,7 +62,7 @@ Window {
         id: progressBar
         x: 220
         y: 373
-        value: functions.counter()
+//        value: functions.counter()
     }
 
     Button {

@@ -10,8 +10,8 @@ functions::functions(QObject *parent) : QObject(parent) {
 
 void functions::onTimeout()
 {
-    setCounter(m_counter + 1);
     qDebug()<<m_counter;
+    emitValue(m_counter++);
 }
 
 bool functions::openSerialPort(const QString &portName, int baudRate) {
